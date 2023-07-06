@@ -1,0 +1,11 @@
+{
+  "dev": {
+    "host": "localhost",
+    "user": "root",
+    "password": "pass123",
+    "database": "pbcm",
+    "driver": "mysql",
+    "multipleStatements": true
+  },
+  "sql-file": true
+}
