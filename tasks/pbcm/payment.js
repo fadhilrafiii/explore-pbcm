@@ -1,5 +1,5 @@
 const { createBulkPayment } = require('../repositories/payment');
-const { readCsv } = require('../utils/file');
+const { readCsv, writeCsv } = require('../utils/file');
 
 const parsePaymentCsvData = (data) => {
   const values = data.split('|')
@@ -22,11 +22,20 @@ const insertBulkPaymentCsvDataToDatabase = (rows) => {
   createBulkPayment(data);
 };
 
+const writePaymentOneDayCsv = (rows) => {
+  const csvOneDayFilepath = "assets/one_day_b2b_pbcm_dash_payment_20230628.csv"
+
+  for (let row of rows) {
+    const paymentDate = row.split('|')[1]
+    if (paymentDate === '2023-06-28') writeCsv(csvOneDayFilepath, row);
+  }
+}
+
 const migratePaymentsFromCSVToDatabase = async () => {
   try {
-    const bulkInterval = 20000;
+    const bulkInterval = 200;
     const start = performance.now();
-    const filename = "assets/b2b_pbcm_dash_payment_20230628.csv";
+    const filename = "assets/one_day_b2b_pbcm_dash_payment_20230628.csv";
     await readCsv(filename, insertBulkPaymentCsvDataToDatabase, { interval: bulkInterval, includeHeader: false });
     const end = performance.now();
 

@@ -1,6 +1,7 @@
+const { getTimeFromMilliseconds } = require("../utils/datetime");
 const { dbQuery } = require("./db");
 
-const createBulkPayment = async (params) => {
+const createBulkPayment = async (params, count) => {
   const query =
     'INSERT INTO payment (' +
     ' payment_source, ' +
@@ -19,7 +20,9 @@ const createBulkPayment = async (params) => {
     ' am_name ' +
     ') VALUES ?;';
 
-  return dbQuery(query, [params]);
+  const result = await dbQuery(query, [params]);
+
+  return result;
 }
 
 module.exports = {

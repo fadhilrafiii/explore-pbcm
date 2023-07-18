@@ -52,9 +52,7 @@ const createBulkAccountBilling = async (params) => {
     ' os_over_due, ' +
     ' bill_next_due, ' +
     ' os_next_due, ' +
-    ' total_billing, ' +
-    ' total_payment, ' +
-    ' event_date ' +
+    ' total_billing ' +
     ') VALUES ?;';
 
   return dbQuery(query, [params]);

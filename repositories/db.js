@@ -5,6 +5,7 @@ const DB_PORT = 3306;
 const DB_NAME = 'pbcm'
 
 const dbConnection = mysql.createConnection({
+  connectionLimit: 100000,
   host: DB_HOST,
   user: "root",
   port: DB_PORT,
@@ -13,7 +14,7 @@ const dbConnection = mysql.createConnection({
 });
 
 const dbPool = mysql.createPool({
-  limit: 100,
+  limit: 32000,
   host: DB_HOST,
   user: "root",
   port: DB_PORT,

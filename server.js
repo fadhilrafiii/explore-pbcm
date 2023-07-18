@@ -1,8 +1,10 @@
 const hapi = require('@hapi/hapi');
 const { connectDB } = require('./repositories/db');
 const paymentRoutes = require('./routes/payment');
-const { migrateAccountBillingsFromCSVToDatabase } = require('./tasks/account');
-const { migratePaymentsFromCSVToDatabase } = require('./tasks/payment');
+const { migrateCreditScoringAccountsCsvToDatabase } = require('./tasks/creditScore/account');
+const { migrateCreditScoringProjectsCsvToDatabase } = require('./tasks/creditScore/project');
+const { migrateCreditScoringWriteOffsCsvToDatabase } = require('./tasks/creditScore/writeOff');
+const { migrateAccountBillingsFromCSVToDatabase } = require('./tasks/pbcm/account');
 
 const PORT = 8000;
 
@@ -23,8 +25,10 @@ const runServer = async () => {
   await connectDB();
 
   // TASKS
-  await migratePaymentsFromCSVToDatabase();
-  // await migrateAccountBillingsFromCSVToDatabase();
+  // migrateCreditScoringProjectsCsvToDatabase();
+  // migrateCreditScoringAccountsCsvToDatabase();
+  // migrateCreditScoringWriteOffsCsvToDatabase();
+  migrateAccountBillingsFromCSVToDatabase();
 }
 
 runServer();
